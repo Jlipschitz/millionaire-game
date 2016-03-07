@@ -1,0 +1,68 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.container-fluid {
+    height: 100%;
+    display: table;
+    width: 100%;
+    padding: 0;
+}
+
+.row-fluid {
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.centering {
+    float: none;
+    margin: 0 auto;
+}
+
+#gameScreen {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    color: white !important;
+    text-align: center !important;
+    padding: 4% !important;
+}
+
+#playButton,
+#instructionButton,
+#finalAnswer {
+    background-color: black;
+    color: white;
+    margin: 50px;
+    border-color: #3385ff;
+    border: 1px;
+}
+
+#playButton:hover,
+#instructionButton:hover,
+#finalAnswer:hover {
+    background-color: #f7941e;
+    color: black;
+    border-radius: 10px;
+    border-color: #3385ff;
+    border: 1px;
+}
+
+#playButton:active,
+#instructionButton:active,
+#finalAnswer:active {
+    background-color: #f7941e;
+    color: black;
+    border-radius: 10px;
+}
+
+#buttonText {
+    font-size: 50px;
+}
+
+#finalText {
+    font-size: 35px;
+}

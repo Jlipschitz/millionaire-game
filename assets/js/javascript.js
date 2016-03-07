@@ -36,25 +36,24 @@ var gameEngine = {
     ],
     currentQuestion: {},
     userInput: "",
+    instruction: ["How to Play:", "Each round a random question will be asked and money is awarded.",
+        "Answer all fifteen questions correct to win a million dollars!"
+    ],
 
-    intervalTimer: function() {
-        //set delay between questions
-
-    },
     chooseQuestion: function() {
         gameEngine.currentQuestion = questionList[Math.floor(Math.random() * questionList.length)];
     },
-    shuffleQuestionOrder: function () {
-    var j, x, i;
-    for (i = questionList.length; i; i -= 1) {
-        j = Math.floor(Math.random() * i);
-        x = questionList[i - 1];
-        questionList[i - 1] = questionList[j];
-        questionList[j] = x;
-    }
-},
+    shuffleQuestionOrder: function() {
+        var j, x, i;
+        for (i = questionList.length; i; i -= 1) {
+            j = Math.floor(Math.random() * i);
+            x = questionList[i - 1];
+            questionList[i - 1] = questionList[j];
+            questionList[j] = x;
+        }
+    },
     validate: function() {
-        if (gameEngine.userInput === currentQuestion.answer) {
+        if (gameEngine.userInput === gameEngine.currentQuestion.answer) {
             return keepPlaying = true;
         } else {
             return keepPlaying = false;
@@ -63,23 +62,44 @@ var gameEngine = {
 };
 
 // shuffle questions to avoid repetition when game is first start and also when restarted
-gameEngine.shuffleQuestionOrder(questionList); 
+gameEngine.shuffleQuestionOrder(questionList);
 
 var gameDisplay = {
-	
-}
+    showCaseQuestion: "", //display question
+    showCaseChoices: "", //display choices
+    finalAnswer: "",
+    removeStart: function() {
+        $("#logo").fadeOut(2500);
+        $("#playButton, #instructionButton").fadeOut(2500);
+    }
+};
 
 var gamePlay = {
+    radioChoiceListener: function() {
+        $('#questionForm input').on('change', function() {
+            gameEngine.userInput = $('input[name="userChoice"]:checked', '#questionForm').val();
+        })
+    },
+    startPlayListener: function() {
+        $("#playButton").on("click", function() {
+            gameDisplay.removeStart();
+        })
+    },
+    reset: function() {
+        //implement reset here
+    }
+};
 
-}
+$(document).ready(function() {
 
-/* function playAgain() {
+    gamePlay.startPlayListener();
+    gamePlay.radioChoiceListener();
 
-}
-*/
+    // user for loop inside gamePlay to start the game
 
-/*
-while (gameEngine.score < 16) {
-    //run this game
-} 
-*/
+
+
+
+
+    $.backstretch("assets/images/background.jpg");
+}); // end document ready
