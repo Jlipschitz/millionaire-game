@@ -27,6 +27,8 @@ AddQuestion("What's 1+13 equal to?", ["One", "Fourteen", "Three", "Four"], "Four
 AddQuestion("What's 1+14 equal to?", ["One", "Two", "Fifteen", "Four"], "Fifteen");
 AddQuestion("What's 1+15 equal to?", ["One", "Two", "Sixteen", "Four"], "Sixteen");
 
+
+
 var gameEngine = {
     score: 0,
     keepPlaying: true,
@@ -41,7 +43,7 @@ var gameEngine = {
     ],
 
     chooseQuestion: function() {
-        gameEngine.currentQuestion = questionList[Math.floor(Math.random() * questionList.length)];
+        gameEngine.currentQuestion = questionList[1];
     },
     shuffleQuestionOrder: function() {
         var j, x, i;
@@ -65,14 +67,51 @@ var gameEngine = {
 gameEngine.shuffleQuestionOrder(questionList);
 
 var gameDisplay = {
-    showCaseQuestion: "", //display question
-    showCaseChoices: "", //display choices
-    finalAnswer: "",
+    askingPhase: function() {
+        var ask = gameEngine.currentQuestion;
+
+        //ask question
+        $("#questionField").append('<div><h1 id="questionText"></h1></div>');
+        $("#questionText").text(ask.questions);
+
+        //show choice 1
+        $("#questionField").append('<label for="firstChoice" id="firstLabel">');
+        $("#firstLabel").append('<input type="radio" value=' + ask.choices[0] + ' name="userChoice" id="firstChoice">');
+        $("#firstLabel").append('<span>' + ask.choices[0] + '</span></input>');
+        $("#questionField").append('</label>');
+
+        //show choice 2
+        $("#questionField").append('<label for="secondChoice" id="secondLabel">');
+        $("#secondLabel").append('<input type="radio" value=' + ask.choices[1] + ' name="userChoice" id="secondChoice">');
+        $("#secondLabel").append('<span>' + ask.choices[1] + '</span></input>');
+        $("#questionField").append('</label>');
+
+        //show choice 3
+        $("#questionField").append('<label for="thirdChoice" id="thirdLabel">');
+        $("#thirdLabel").append('<input type="radio" value=' + ask.choices[2] + ' name="userChoice" id="thirdChoice">');
+        $("#thirdLabel").append('<span>' + ask.choices[2] + '</span></input>');
+        $("#questionField").append('</label>');
+
+        //show choice 4
+        $("#questionField").append('<label for="fourthChoice" id="fourthLabel">');
+        $("#fourthLabel").append('<input type="radio" value=' + ask.choices[3] + ' name="userChoice" id="fourthChoice">');
+        $("#fourthLabel").append('<span>' + ask.choices[3] + '</span></input>');
+        $("#questionField").append('</label>');
+
+        //final answer button
+        $("#questionField").append('<div class="clearfix"></div>');
+        $("#questionField").append('<button type="button" id="finalAnswer"><span id="finalText">Final Answer</span></button>');
+        $("#finalAnswer").attr("class", "btn btn-default btn-lg active");
+    },
+    finalAnswer: function() {
+        //onclick to pickup current radio input
+    },
     removeStart: function() {
         $("#logo").fadeOut(2500);
         $("#playButton, #instructionButton").fadeOut(2500);
     }
 };
+
 
 var gamePlay = {
     radioChoiceListener: function() {
@@ -92,14 +131,13 @@ var gamePlay = {
 
 $(document).ready(function() {
 
+    var counter = 0;
+
     gamePlay.startPlayListener();
     gamePlay.radioChoiceListener();
 
-    // user for loop inside gamePlay to start the game
 
 
-
-
-
+    //background image
     $.backstretch("assets/images/background.jpg");
 }); // end document ready
